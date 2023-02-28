@@ -33,19 +33,28 @@ http
         // }
         break;
       case "POST":
-        if (q.query.id && q.query.name && q.query.price) {
-          products.push({
-            id: Number(q.query.id),
-            name: q.query.name,
-            price: q.query.price,
-          });
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.write(JSON.stringify(products));
-          res.end();
-        } else {
-          res.write("Post a valid request");
-          res.end();
-        }
+        let body = "";
+        req.on("data", (chunk) => {
+          body += chunk.toString();
+        });
+        req.on("end", () => {
+          console.log("hi", body);
+          products.push(JSON.parse(body));
+          res.end("ok");
+        });
+        // if (q.query.id && q.query.name && q.query.price) {
+        //   products.push({
+        //     id: Number(q.query.id),
+        //     name: q.query.name,
+        //     price: q.query.price,
+        //   });
+        //   res.writeHead(200, { "Content-Type": "application/json" });
+        //   res.write(JSON.stringify(products));
+        //   res.end();
+        // } else {
+        //   res.write("Post a valid request");
+        //   res.end();
+        // }
         break;
       case "PUT":
         if (q.query.id) {
@@ -56,14 +65,13 @@ http
               item.price = q.query.price;
             }
           });
-          res.writeHead(200, { "Content-Type": "application/json" });
           res.write(JSON.stringify(products));
           res.end();
         }
         break;
       case "DELETE":
         let deleteId = products.findIndex((item) => item.id === +temp);
-        if (deleteId > 0) {
+        if (deleteId >= 0) {
           res.write(JSON.stringify(products[deleteId]));
           products.splice(deleteId, 1);
           res.end();
