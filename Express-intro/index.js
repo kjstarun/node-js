@@ -8,9 +8,9 @@ const {
   handlePostRequest,
   handlePutRequest,
 } = require("./requests.js");
-app.use(bodyParser.json());
 const port = 30000;
 
+app.use(bodyParser.json());
 app.get("/products", (req, res) => handleGetRequest(req, res));
 app.get("/products/:id", (req, res) => handleGetRequestviaId(req, res));
 app.post("/products", (req, res) => handlePostRequest(req, res));

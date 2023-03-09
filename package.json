@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Node-JS-practice",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./Express-intro/index.js"
@@ -15,6 +16,8 @@
   "dependencies": {
     "autocannon": "^7.10.0",
     "express": "^4.18.2",
-    "nodemon": "^2.0.20"
+    "jsonwebtoken": "^9.0.0",
+    "nodemon": "^2.0.21",
+    "winston": "^3.8.2"
   }
 }
