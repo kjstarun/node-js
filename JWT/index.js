@@ -1,12 +1,12 @@
-import pkg from "jsonwebtoken";
-//const jsonwebtoken = require("jsonwebtoken");
+import express from "express";
+import userRouter from "./API/user.routes.js";
+import { PORT } from "./config.js";
 
-const signedToken = pkg.sign({ name: "Tarun", company: "ces" }, "hello");
-console.log({ signedToken });
+const app = express();
 
-try {
-  const isVerified = pkg.verify(signedToken, "hello");
-  console.log({ isVerified });
-} catch (err) {
-  console.log(err);
-}
+app.use(express.json());
+app.use("/user", userRouter);
+
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+});
